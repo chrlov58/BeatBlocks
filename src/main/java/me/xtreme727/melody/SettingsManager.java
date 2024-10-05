@@ -38,7 +38,7 @@ public class SettingsManager {
             configuration.save(file);
         } catch (Exception e) {
             e.printStackTrace();
-            Bukkit.getServer().broadcast(Message.format(Message.fileSaveFailure, file.getName()));
+            Bukkit.getServer().broadcast(Message.format(Message.fileSaveFailure, file.getName(), e.getLocalizedMessage()));
         }
     }
 
