@@ -15,6 +15,8 @@ public class CommandManager {
         commands = new HashMap<String, MSubCommand>();
         commands.put("help", new SCHelp());
         commands.put("tools", new SCTools());
+        commands.put("create", new SCCreate());
+        commands.put("play", new SCPlay());
     }
 
     public HashMap<String, MSubCommand> getCommands() { return commands; }
