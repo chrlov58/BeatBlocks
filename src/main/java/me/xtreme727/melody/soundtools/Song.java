@@ -85,7 +85,7 @@ public class Song {
                 }
                 i++;
             }
-        }.runTaskTimer(Melody.getPlugin(), 0L, (long) (60*20)/tempo);
+        }.runTaskTimer(Melody.getPlugin(), 0L, (long) (60*20)/(tempo* 4L));
     }
 
     public int getTempo() {

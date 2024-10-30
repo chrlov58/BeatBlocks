@@ -10,21 +10,21 @@ import org.bukkit.inventory.meta.ItemMeta;
 public enum Instrument {
 
     BANJO(9, Material.OAK_PLANKS, org.bukkit.Instrument.BANJO, "Banjo"),
-    BASS_DRUM(10, Material.COAL_BLOCK, org.bukkit.Instrument.BASS_DRUM, "Kick Drum"),
-    BASS_GUITAR(11, Material.OAK_WOOD, org.bukkit.Instrument.BASS_GUITAR, "Bass Guitar"),
-    BELL(12, Material.GOLD_BLOCK, org.bukkit.Instrument.BELL, "Bell/Glockenspiel"),
-    BIT(13, Material.TARGET, org.bukkit.Instrument.BIT, "Bit/Square"),
-    CHIME(14, Material.REINFORCED_DEEPSLATE, org.bukkit.Instrument.CHIME, "Chime"),
-    COW_BELL(15, Material.BIRCH_WOOD, org.bukkit.Instrument.COW_BELL, "Cowbell"),
-    DIDGERIDOO(16, Material.COMPOSTER, org.bukkit.Instrument.DIDGERIDOO, "Didgeridoo"),
-    FLUTE(17, Material.IRON_BLOCK, org.bukkit.Instrument.FLUTE, "Flute"),
-    GUITAR(19, Material.PACKED_MUD, org.bukkit.Instrument.GUITAR, "Guitar"),
-    IRON_XYLOPHONE(20, Material.SMOOTH_STONE, org.bukkit.Instrument.IRON_XYLOPHONE, "Vibraphone"),
-    PIANO(21, Material.QUARTZ_BLOCK, org.bukkit.Instrument.PIANO, "Piano"),
-    PLING(22, Material.SEA_LANTERN, org.bukkit.Instrument.PLING, "Pling"),
-    SNARE_DRUM(23, Material.WHITE_WOOL, org.bukkit.Instrument.SNARE_DRUM, "Snare Drum"),
-    STICKS(24, Material.DIORITE, org.bukkit.Instrument.STICKS, "Sticks/Hi-Hat"),
-    XYLOPHONE(25, Material.SPRUCE_PLANKS, org.bukkit.Instrument.XYLOPHONE, "Xylophone");
+    BASS_DRUM(23, Material.COAL_BLOCK, org.bukkit.Instrument.BASS_DRUM, "Kick Drum"),
+    BASS_GUITAR(10, Material.OAK_WOOD, org.bukkit.Instrument.BASS_GUITAR, "Bass Guitar"),
+    BELL(11, Material.GOLD_BLOCK, org.bukkit.Instrument.BELL, "Bell/Glockenspiel"),
+    BIT(12, Material.TARGET, org.bukkit.Instrument.BIT, "Bit/Square"),
+    CHIME(13, Material.REINFORCED_DEEPSLATE, org.bukkit.Instrument.CHIME, "Chime"),
+    COW_BELL(14, Material.BIRCH_WOOD, org.bukkit.Instrument.COW_BELL, "Cowbell"),
+    DIDGERIDOO(15, Material.COMPOSTER, org.bukkit.Instrument.DIDGERIDOO, "Didgeridoo"),
+    FLUTE(16, Material.IRON_BLOCK, org.bukkit.Instrument.FLUTE, "Flute"),
+    GUITAR(17, Material.PACKED_MUD, org.bukkit.Instrument.GUITAR, "Guitar"),
+    IRON_XYLOPHONE(18, Material.SMOOTH_STONE, org.bukkit.Instrument.IRON_XYLOPHONE, "Vibraphone"),
+    PIANO(19, Material.QUARTZ_BLOCK, org.bukkit.Instrument.PIANO, "Piano"),
+    PLING(20, Material.SEA_LANTERN, org.bukkit.Instrument.PLING, "Pling"),
+    SNARE_DRUM(24, Material.WHITE_WOOL, org.bukkit.Instrument.SNARE_DRUM, "Snare Drum"),
+    STICKS(25, Material.DIORITE, org.bukkit.Instrument.STICKS, "Sticks/Hi-Hat"),
+    XYLOPHONE(21, Material.SPRUCE_PLANKS, org.bukkit.Instrument.XYLOPHONE, "Xylophone");
 
     private Material dMaterial;
     private org.bukkit.Instrument bInstrument;

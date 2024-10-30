@@ -1,6 +1,5 @@
 package me.xtreme727.melody.commands;
 
-import me.xtreme727.melody.Melody;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ public class CommandManager {
     public CommandManager() {
         commands = new HashMap<String, MSubCommand>();
         commands.put("help", new SCHelp());
-        commands.put("tools", new SCTools());
+        commands.put("editor", new SCEditor());
         commands.put("create", new SCCreate());
         commands.put("play", new SCPlay());
     }

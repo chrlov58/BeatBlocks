@@ -10,13 +10,13 @@ public class Message {
 
     public static String commandCreate = prefix + "Created song &b{0} &7- [{1} BPM]";
     public static String commandCreateBlocktype = prefix + "You must be looking at your starting block, a redstone lamp.";
+    public static String commandEditor = prefix + "Toggling editor mode.";
+    public static String commandEditorAddOn = " Run &b/melody editor &7again to disable editor mode.";
     public static String commandHelpHeader = prefix + "v{0} Commands:";
     public static String commandHelpList = "  &7> /melody &b{0}";
     public static String commandInvalidFormat = prefix + "Invalid command format! &b/melody {0}";
     public static String commandPlay = prefix + "Now playing &b{0} &7- [{1} BPM]";
     public static String commandPlayNull = prefix + "Can't find a song named &b{0}&7!";
-    public static String commandTools = prefix + "You've received songwriting tools.";
-    public static String commandToolsWarn = prefix + "&c&lWARNING!&7 This command will clear and replace your inventory with songwriting tools. Send &b/melody tools&7 again to confirm.";
 
     public static String consoleCommandSender = prefix + "Must be a player to run commands!";
 
