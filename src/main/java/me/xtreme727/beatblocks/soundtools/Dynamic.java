@@ -1,9 +1,15 @@
 package me.xtreme727.beatblocks.soundtools;
 
 import me.xtreme727.beatblocks.Message;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
 
 public enum Dynamic {
 
@@ -36,6 +42,17 @@ public enum Dynamic {
             if (d.getDisplayText().equalsIgnoreCase(Message.stripColor(s.getSide(Side.FRONT).line(2)))) return d;
         }
         return null;
+    }
+
+    public static ItemStack getDynamicItemStack() {
+        ItemStack i = new ItemStack(Material.OAK_HANGING_SIGN, 1);
+        ItemMeta iMeta = i.getItemMeta();
+        iMeta.displayName(Message.formatItemMeta("&f&lDynamics"));
+        ArrayList<Component> lore = new ArrayList<Component>();
+        lore.add(Message.formatItemMeta("&7Write the first line as &bP&7, &bMP&7, &bMF&7, or &bF&7 to set dynamics."));
+        iMeta.lore(lore);
+        i.setItemMeta(iMeta);
+        return i;
     }
 
 }

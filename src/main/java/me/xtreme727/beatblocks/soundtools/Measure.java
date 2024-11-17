@@ -17,7 +17,8 @@ public enum Measure {
     EIGHT_2(8, 2, "8 Blocks &o(4/4 time)"),
     SIX(6, 2, "6 Blocks &o(3/4 time)"),
     FOUR(4, 1, "4 Blocks &o(4/4 time)"),
-    THREE(3, 1, "3 Blocks &o(3/4 time)");
+    THREE(3, 1, "3 Blocks &o(3/4 time)"),
+    CONNECT(0, 0, "Connect &o(LEFT click two measure caps to connect them together)");
 
     private int size;
     private int multiplier;
@@ -51,6 +52,17 @@ public enum Measure {
             lore.add(Message.formatItemMeta(" &f> " + m.getDisplayText()));
             m = (m.ordinal() == Measure.values().length - 1) ? Measure.values()[0] : Measure.values()[m.ordinal() + 1];
         }
+        iMeta.lore(lore);
+        i.setItemMeta(iMeta);
+        return i;
+    }
+
+    public static ItemStack getMeasureCapItemStack() {
+        ItemStack i = new ItemStack(Material.REDSTONE_LAMP, 1);
+        ItemMeta iMeta = i.getItemMeta();
+        iMeta.displayName(Message.formatItemMeta("&f&lMeasure Cap"));
+        ArrayList<Component> lore = new ArrayList<Component>();
+        lore.add(Message.formatItemMeta("&7Use the '&bMeasure Builder: &7Connect' tool to connect two measure caps."));
         iMeta.lore(lore);
         i.setItemMeta(iMeta);
         return i;
