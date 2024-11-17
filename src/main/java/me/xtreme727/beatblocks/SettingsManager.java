@@ -1,4 +1,4 @@
-package me.xtreme727.melody;
+package me.xtreme727.beatblocks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,11 +19,11 @@ public class SettingsManager {
     private FileConfiguration configuration;
 
     private SettingsManager(String fName) {
-        if (!Melody.getPlugin().getDataFolder().exists()) {
-            Melody.getPlugin().getDataFolder().mkdir();
+        if (!BeatBlocks.getPlugin().getDataFolder().exists()) {
+            BeatBlocks.getPlugin().getDataFolder().mkdir();
         }
 
-        this.file = new File(Melody.getPlugin().getDataFolder(), fName + ".yml");
+        this.file = new File(BeatBlocks.getPlugin().getDataFolder(), fName + ".yml");
         if (!file.exists()) {
             try {
                 file.createNewFile();

@@ -1,10 +1,10 @@
-name: Melody
-main: me.xtreme727.melody.Melody
+name: BeatBlocks
+main: me.xtreme727.beatblocks.BeatBlocks
 version: 0.0.1
 author: Xtreme727
 api-version: '1.21'
 
 commands:
-  melody:
+  beatblocks:
     description: Core command
-    usage: /melody <arguments>
+    usage: /beatblocks <arguments>

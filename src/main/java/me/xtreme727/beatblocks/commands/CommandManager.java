@@ -1,4 +1,4 @@
-package me.xtreme727.melody.commands;
+package me.xtreme727.beatblocks.commands;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,19 +9,19 @@ public class CommandManager {
     private static final CommandManager instance =  new CommandManager();
     public static CommandManager getInstance () { return instance; }
 
-    private HashMap<String, MSubCommand> commands;
+    private HashMap<String, BBSubCommand> commands;
     public CommandManager() {
-        commands = new HashMap<String, MSubCommand>();
+        commands = new HashMap<String, BBSubCommand>();
         commands.put("help", new SCHelp());
         commands.put("editor", new SCEditor());
         commands.put("create", new SCCreate());
         commands.put("play", new SCPlay());
     }
 
-    public HashMap<String, MSubCommand> getCommands() { return commands; }
+    public HashMap<String, BBSubCommand> getCommands() { return commands; }
 
     public void onEnable(JavaPlugin javaPlugin) {
-        javaPlugin.getCommand("melody").setExecutor(new CommandMelody());
+        javaPlugin.getCommand("beatblocks").setExecutor(new CommandBeatBlocks());
     }
 
 }

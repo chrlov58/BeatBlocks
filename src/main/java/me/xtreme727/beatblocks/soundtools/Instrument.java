@@ -1,6 +1,6 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
-import me.xtreme727.melody.Message;
+import me.xtreme727.beatblocks.Message;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -40,7 +40,7 @@ public enum Instrument {
 
         dItem = new ItemStack(dMaterial, 1);
         ItemMeta dItemMeta = dItem.getItemMeta();
-        dItemMeta.displayName(Message.format("&f&l" + dName).decoration(TextDecoration.ITALIC, false));
+        dItemMeta.displayName(Message.formatItemMeta("&f&l" + dName).decoration(TextDecoration.ITALIC, false));
         dItem.setItemMeta(dItemMeta);
     }
 

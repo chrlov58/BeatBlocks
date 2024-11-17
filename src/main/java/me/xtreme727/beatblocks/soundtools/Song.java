@@ -1,8 +1,8 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
-import me.xtreme727.melody.Melody;
-import me.xtreme727.melody.SettingsManager;
-import me.xtreme727.melody.users.User;
+import me.xtreme727.beatblocks.BeatBlocks;
+import me.xtreme727.beatblocks.SettingsManager;
+import me.xtreme727.beatblocks.users.User;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,28 +15,30 @@ import java.util.HashMap;
 public class Song {
 
     private String name;
-    private HashMap<Integer, Beat> beats;
+    private HashMap<Integer, Division> divs;
+    private int divisions;
     private int tempo;
     private Block startPoint;
 
     public Song(String name) {
         this.name = name;
-        beats = new HashMap<Integer, Beat>();
+        divs = new HashMap<Integer, Division>();
         startPoint = SettingsManager.getSongFile().getLocation(name).getBlock();
         tempo = SettingsManager.getSongFile().getInt(name + ".BPM");
+        divisions = SettingsManager.getSongFile().getInt(name + ".Div");
     }
 
     public String getName () { return name; }
 
     public void load() {
-        beats.clear();
+        divs.clear();
         Block readPoint = startPoint;
         int i = 1;
         int count = 1;
         Dynamic currentDynamic = Dynamic.FORTE;
         while (readPoint.getType() != Material.AIR) {
             Bukkit.getServer().broadcast(Component.text("The readpoint isn't air"));
-            Beat beat = new Beat();
+            Division division = new Division();
             Dynamic newDynamic = Dynamic.fromBlock(readPoint.getRelative(i, 0, 0));
             int z = 1;
 
@@ -44,13 +46,13 @@ public class Song {
             while (readPoint.getRelative(i, 0, z).getType() != Material.AIR) {
                 Block soundBlock = readPoint.getRelative(i, 0, z);
                 SoundBit bit = new SoundBit(Instrument.fromBlock(soundBlock), Note.fromBlock(soundBlock), currentDynamic);
-                Bukkit.getServer().broadcast(Component.text("Adding note to beat " + count + " [" + bit.getNote().toString() + ", "
+                Bukkit.getServer().broadcast(Component.text("Adding note to division " + count + " [" + bit.getNote().toString() + ", "
                   + bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
-                beat.getSoundBits().add(bit);
+                division.getSoundBits().add(bit);
                 z++;
             }
-            Bukkit.getServer().broadcast(Component.text("Added all notes (" + beat.getSoundBits().size() + ") to a beat."));
-            beats.put(count, beat);
+            Bukkit.getServer().broadcast(Component.text("Added all notes (" + division.getSoundBits().size() + ") to a division."));
+            divs.put(count, division);
 
             if (readPoint.getRelative(i, 0, 0).getType() == Material.REDSTONE_LAMP) {
                 Block b = readPoint.getRelative(i, 0, 0);
@@ -73,19 +75,19 @@ public class Song {
         new BukkitRunnable() {
             int i = 1;
             public void run() {
-                if (beats.get(i) == null) {
+                if (divs.get(i) == null) {
                     Bukkit.getServer().broadcast(Component.text("PLAY: End of song"));
                     this.cancel();
                     return;
                 }
-                for (SoundBit bit : beats.get(i).getSoundBits()) {
+                for (SoundBit bit : divs.get(i).getSoundBits()) {
                     Bukkit.getServer().broadcast(Component.text("PLAY: Playing note " + bit.getNote().toString()
                             + " [" + "P" + bit.getNote().getPitch() + ", " + bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
                     u.playSoundBit(bit);
                 }
                 i++;
             }
-        }.runTaskTimer(Melody.getPlugin(), 0L, (long) (60*20)/(tempo* 4L));
+        }.runTaskTimer(BeatBlocks.getPlugin(), 0L, (long) (60*20)/(tempo * divisions));
     }
 
     public int getTempo() {

@@ -1,6 +1,6 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
-import me.xtreme727.melody.Message;
+import me.xtreme727.beatblocks.Message;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;

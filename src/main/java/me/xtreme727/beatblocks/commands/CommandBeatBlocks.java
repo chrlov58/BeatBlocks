@@ -1,14 +1,14 @@
-package me.xtreme727.melody.commands;
+package me.xtreme727.beatblocks.commands;
 
-import me.xtreme727.melody.Message;
-import me.xtreme727.melody.users.User;
-import me.xtreme727.melody.users.UserManager;
+import me.xtreme727.beatblocks.Message;
+import me.xtreme727.beatblocks.users.User;
+import me.xtreme727.beatblocks.users.UserManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandMelody implements CommandExecutor {
+public class CommandBeatBlocks implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command c, String s, String[] args) {
         if (!(sender instanceof Player)) {
@@ -23,7 +23,7 @@ public class CommandMelody implements CommandExecutor {
             return true;
         }
 
-        MSubCommand sc = CommandManager.getInstance().getCommands().get(args[0].toLowerCase());
+        BBSubCommand sc = CommandManager.getInstance().getCommands().get(args[0].toLowerCase());
         if (sc == null) {
             CommandManager.getInstance().getCommands().get("help").onCommand(u, args);
             return true;

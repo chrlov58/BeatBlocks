@@ -1,4 +1,4 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
 public class SoundBit {
 

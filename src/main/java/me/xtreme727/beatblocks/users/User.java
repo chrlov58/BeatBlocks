@@ -1,8 +1,6 @@
-package me.xtreme727.melody.users;
+package me.xtreme727.beatblocks.users;
 
-import me.xtreme727.melody.soundtools.Instrument;
-import me.xtreme727.melody.soundtools.Note;
-import me.xtreme727.melody.soundtools.SoundBit;
+import me.xtreme727.beatblocks.soundtools.SoundBit;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
@@ -26,20 +24,24 @@ public class User {
         editor = false;
     }
 
-    public void sendMessage(Component component) {
-        player.sendMessage(component);
+    public void closeInventory() {
+        player.closeInventory();
+    }
+
+    public PlayerInventory getInventory() {
+        return player.getInventory();
+    }
+
+    public Block getTargetBlock() {
+        return player.getTargetBlockExact(4);
     }
 
     public void playSoundBit(SoundBit bit) {
         player.playSound(player, bit.getInstrument().getBukkitInstrument().getSound(), bit.getDynamics().getNumericVolume(), bit.getNote().getPitch());
     }
 
-    public PlayerInventory getInventory () {
-        return player.getInventory();
-    }
-
-    public Block getTargetBlock() {
-        return player.getTargetBlockExact(4);
+    public void sendMessage(Component component) {
+        player.sendMessage(component);
     }
 
     public void toggleEditor() {
@@ -59,18 +61,12 @@ public class User {
         editorInventoryArmor = player.getInventory().getArmorContents();
         editorInventoryOffHand = player.getInventory().getItemInOffHand();
         player.getInventory().clear();
-        for (Instrument i : Instrument.values()) {
-            player.getInventory().setItem(i.getItemSlot(), i.getDisplayItem());
-        }
-        for (Note n : Note.values()) {
-            if (n.getItemSlot() >= 0) {
-                player.getInventory().setItem(n.getItemSlot(), n.getDisplayItem());
-            }
-        }
+        player.getInventory().setHeldItemSlot(8);
 
         editorFlying = player.getAllowFlight();
         editorGameMode = player.getGameMode();
         player.setGameMode(GameMode.SURVIVAL);
+        player.setFoodLevel(20);
 
         player.setAllowFlight(true);
         player.setFlying(true);

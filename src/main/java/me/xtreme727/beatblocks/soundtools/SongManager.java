@@ -1,6 +1,6 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
-import me.xtreme727.melody.SettingsManager;
+import me.xtreme727.beatblocks.SettingsManager;
 import org.bukkit.block.Block;
 
 import java.util.ArrayList;
@@ -23,9 +23,10 @@ public class SongManager {
         songs.remove(s);
     }
 
-    public Song create(String name, int bpm, Block b) {
+    public Song create(String name, int bpm, int divisions, Block b) {
         if (getSong(name) != null) return getSong(name);
         SettingsManager.getSongFile().set(name + ".BPM", bpm);
+        SettingsManager.getSongFile().set(name + ".Div", divisions);
         SettingsManager.getSongFile().saveLocation(name, b.getLocation());
 
         Song s = new Song(name);

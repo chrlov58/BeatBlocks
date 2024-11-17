@@ -1,11 +1,11 @@
-package me.xtreme727.melody.commands;
+package me.xtreme727.beatblocks.commands;
 
-import me.xtreme727.melody.Message;
-import me.xtreme727.melody.soundtools.Song;
-import me.xtreme727.melody.soundtools.SongManager;
-import me.xtreme727.melody.users.User;
+import me.xtreme727.beatblocks.Message;
+import me.xtreme727.beatblocks.soundtools.Song;
+import me.xtreme727.beatblocks.soundtools.SongManager;
+import me.xtreme727.beatblocks.users.User;
 
-public class SCPlay implements MSubCommand {
+public class SCPlay implements BBSubCommand {
 
     public boolean onCommand(User u, String[] args) {
         if (args.length < 2) return false;

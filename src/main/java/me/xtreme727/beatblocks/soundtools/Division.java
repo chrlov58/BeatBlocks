@@ -1,12 +1,12 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
 import java.util.ArrayList;
 
-public class Beat {
+public class Division {
 
     private ArrayList<SoundBit> soundbits;
 
-    public Beat() {
+    public Division() {
         soundbits = new ArrayList<SoundBit>();
     }
 

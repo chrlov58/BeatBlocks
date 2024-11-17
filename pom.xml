@@ -5,7 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.xtreme727</groupId>
-    <artifactId>melody</artifactId>
+    <artifactId>BeatBlocks</artifactId>
+    <name>BeatBlocks</name>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -38,9 +39,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
-                    <release>21</release>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>

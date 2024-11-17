@@ -1,9 +1,7 @@
-package me.xtreme727.melody.soundtools;
+package me.xtreme727.beatblocks.soundtools;
 
-import me.xtreme727.melody.Message;
-import net.kyori.adventure.text.Component;
+import me.xtreme727.beatblocks.Message;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -40,7 +38,7 @@ public enum Note {
         if (dMaterial != null) {
             dItem = new ItemStack(dMaterial, 1);
             ItemMeta dItemMeta = dItem.getItemMeta();
-            dItemMeta.displayName(Message.format("&f&l" + dName).decoration(TextDecoration.ITALIC, false));
+            dItemMeta.displayName(Message.formatItemMeta("&f&l" + dName).decoration(TextDecoration.ITALIC, false));
             dItem.setItemMeta(dItemMeta);
         }
     }
@@ -120,6 +118,22 @@ public enum Note {
             }
         }
         return null;
+    }
+
+    public static ItemStack getSharpItemStack()  {
+        ItemStack sharp = new ItemStack(Material.POLISHED_DIORITE_SLAB, 1);
+        ItemMeta iMeta = sharp.getItemMeta();
+        iMeta.displayName(Message.formatItemMeta("&f&lSharp"));
+        sharp.setItemMeta(iMeta);
+        return sharp;
+    }
+
+    public static ItemStack getFlatItemStack()  {
+        ItemStack flat = new ItemStack(Material.IRON_TRAPDOOR, 1);
+        ItemMeta iMeta = flat.getItemMeta();
+        iMeta.displayName(Message.formatItemMeta("&f&lFlat"));
+        flat.setItemMeta(iMeta);
+        return flat;
     }
 
 }

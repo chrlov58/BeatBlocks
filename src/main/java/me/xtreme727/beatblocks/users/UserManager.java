@@ -1,7 +1,8 @@
-package me.xtreme727.melody.users;
+package me.xtreme727.beatblocks.users;
 
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserManager {
@@ -21,6 +22,10 @@ public class UserManager {
         User u = new User(player);
         users.put(player, u);
         return u;
+    }
+
+    public ArrayList<User> getUsers() {
+        return new ArrayList<User>(users.values());
     }
 
 }
