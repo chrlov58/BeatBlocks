@@ -13,6 +13,9 @@ public class User {
     private Player player;
 
     public boolean editor;
+    public Block editorCapA;
+    public Block editorCapB;
+    public boolean editorCapping;
     private boolean editorFlying;
     private GameMode editorGameMode;
     private ItemStack[] editorInventory;
@@ -22,6 +25,7 @@ public class User {
     public User(Player player) {
         this.player = player;
         editor = false;
+        editorCapping = false;
     }
 
     public void closeInventory() {
@@ -36,8 +40,10 @@ public class User {
         return player.getTargetBlockExact(4);
     }
 
+    public boolean isSneaking() { return player.isSneaking(); }
+
     public void playSoundBit(SoundBit bit) {
-        player.playSound(player, bit.getInstrument().getBukkitInstrument().getSound(), bit.getDynamics().getNumericVolume(), bit.getNote().getPitch());
+        player.playSound(player, bit.getInstrument().getBukkitInstrument().getSound(), bit.getDynamics().getNumericVolume(), bit.getNote().getPitch(bit.getOctave()));
     }
 
     public void sendMessage(Component component) {
@@ -65,6 +71,8 @@ public class User {
 
         editorFlying = player.getAllowFlight();
         editorGameMode = player.getGameMode();
+        editorCapA = null;
+        editorCapB = null;
         player.setGameMode(GameMode.SURVIVAL);
         player.setFoodLevel(20);
 

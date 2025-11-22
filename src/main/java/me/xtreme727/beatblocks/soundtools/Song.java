@@ -37,33 +37,33 @@ public class Song {
         int count = 1;
         Dynamic currentDynamic = Dynamic.FORTE;
         while (readPoint.getType() != Material.AIR) {
-            Bukkit.getServer().broadcast(Component.text("The readpoint isn't air"));
             Division division = new Division();
             Dynamic newDynamic = Dynamic.fromBlock(readPoint.getRelative(i, 0, 0));
             int z = 1;
 
+            if (readPoint.getRelative(i, 0, 0).getType() == Material.REDSTONE_LAMP) {
+                Block b = readPoint.getRelative(i, 0, 0);
+                for (String key : SettingsManager.getLineCapsFile().getKeys()) {
+                    if (SettingsManager.isSimilarLocation(SettingsManager.getLineCapsFile().getLocation(key + ".End-Cap"), b.getLocation())); {
+                        Block newBlock = SettingsManager.getLineCapsFile().getLocation(key + ".Start-Cap").getBlock();
+                        if (newBlock.getType() == Material.REDSTONE_LAMP) {
+                            readPoint = newBlock;
+                            i = 1;
+                        }
+                    }
+                }
+            }
+
             if (newDynamic != null) currentDynamic = newDynamic;
             while (readPoint.getRelative(i, 0, z).getType() != Material.AIR) {
                 Block soundBlock = readPoint.getRelative(i, 0, z);
-                SoundBit bit = new SoundBit(Instrument.fromBlock(soundBlock), Note.fromBlock(soundBlock), currentDynamic);
-                Bukkit.getServer().broadcast(Component.text("Adding note to division " + count + " [" + bit.getNote().toString() + ", "
-                  + bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
-                division.getSoundBits().add(bit);
+                //Bukkit.getServer().broadcast(Component.text("Adding note to division " + count + " [" + bit.getNote().toString() + ", "
+                  //+ bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
+                division.getSoundBits().add(SoundBit.fromBlock(soundBlock, currentDynamic));
                 z++;
             }
-            Bukkit.getServer().broadcast(Component.text("Added all notes (" + division.getSoundBits().size() + ") to a division."));
+            //Bukkit.getServer().broadcast(Component.text("Added all notes (" + division.getSoundBits().size() + ") to a division."));
             divs.put(count, division);
-
-            if (readPoint.getRelative(i, 0, 0).getType() == Material.REDSTONE_LAMP) {
-                Block b = readPoint.getRelative(i, 0, 0);
-                if (SettingsManager.getSongFile().getLocation(name + "." + b.getX() + "-" + b.getY() + "-" + b.getZ()) != null) {
-                    Location newReadPointLoc = SettingsManager.getSongFile().getLocation(name + "." + b.getX() + "-" + b.getY() + "-" + b.getZ());
-                    Block newReadPoint = newReadPointLoc.getBlock();
-                    if (newReadPoint.getType() != Material.REDSTONE_LAMP) return;
-                    readPoint = newReadPoint;
-                    i = 0;
-                }
-            }
 
             if (readPoint.getRelative(i, 0, 0).getType() == Material.AIR) return;
             i++;
@@ -71,7 +71,9 @@ public class Song {
         }
     }
 
-    public void play(User u) {
+    /*public void play(User u) {
+        load();
+        Bukkit.getServer().broadcast(Component.text("TICKS: " + (long) Math.round((60*20)/(tempo * divisions)) + ", TEMPO: " + tempo + ", DIVISIONS: " + divisions));
         new BukkitRunnable() {
             int i = 1;
             public void run() {
@@ -81,13 +83,47 @@ public class Song {
                     return;
                 }
                 for (SoundBit bit : divs.get(i).getSoundBits()) {
-                    Bukkit.getServer().broadcast(Component.text("PLAY: Playing note " + bit.getNote().toString()
-                            + " [" + "P" + bit.getNote().getPitch() + ", " + bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
+                    //Bukkit.getServer().broadcast(Component.text("PLAY: Playing note " + bit.getNote().toString()
+                            //+ " [" + "P" + bit.getNote().getPitch() + ", " + bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
                     u.playSoundBit(bit);
                 }
                 i++;
             }
-        }.runTaskTimer(BeatBlocks.getPlugin(), 0L, (long) (60*20)/(tempo * divisions));
+        }.runTaskTimer(BeatBlocks.getPlugin(), 0L, (long) Math.round((60*20)/(tempo * divisions)));
+    }*/
+
+    public void play(User u) {
+        load();
+        double ticksPerDiv = (double) (60 * 20) /(tempo*divisions);
+        Bukkit.getServer().broadcast(Component.text("TPD " + ticksPerDiv + " calculated from TEMPO[" + tempo + "] and DIVISIONS[" + divisions + "]."));
+
+        new BukkitRunnable() {
+            int i = 1;
+            double tickAccum = 0.0;
+
+            public void run() {
+                tickAccum += 1.0;
+
+                if (tickAccum >= ticksPerDiv) {
+                    if (divs.get(i) == null) {
+                        Bukkit.getServer().broadcast(Component.text("PLAY: End of song"));
+                        this.cancel();
+                        return;
+                    }
+
+                    for (SoundBit bit : divs.get(i).getSoundBits()) {
+                        //Bukkit.getServer().broadcast(Component.text("PLAY: Playing note " + bit.getNote().toString()
+                        //+ " [" + "P" + bit.getNote().getPitch() + ", " + bit.getInstrument().toString() + ", " + bit.getDynamics().toString() + "]"));
+                        u.playSoundBit(bit);
+                        //Bukkit.getServer().broadcast(Component.text(bit.getNote().toString() + ", " + bit.getNote().getOctave() + "O, " + bit.getNote().getPitch() + "P"));
+                        Bukkit.getServer().broadcast(Component.text("ticksPerDiv: " + ticksPerDiv + "; tickAccum: " + tickAccum));
+                    }
+
+                    i++;
+                    tickAccum -= ticksPerDiv;
+                }
+            }
+        }.runTaskTimer(BeatBlocks.getPlugin(), 0L, 1L);
     }
 
     public int getTempo() {

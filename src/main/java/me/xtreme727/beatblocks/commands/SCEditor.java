@@ -48,7 +48,7 @@ public class SCEditor implements BBSubCommand {
         items.put(29, Note.getFlatItemStack());
         items.put(30, Note.getSharpItemStack());
         items.put(32, Measure.values()[0].getMeasureItemStack());
-        items.put(33, Measure.getMeasureCapItemStack());
+        items.put(33, Measure.getLineCapItemStack());
 
         ItemStack toolSlot = new ItemStack(Material.BLACK_STAINED_GLASS, 1);
         ItemMeta tSMeta = toolSlot.getItemMeta();

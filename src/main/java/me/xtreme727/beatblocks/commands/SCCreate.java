@@ -35,6 +35,11 @@ public class SCCreate implements BBSubCommand {
             name = name.substring(0, name.length() - 1);
         }
 
+        if (SongManager.getInstance().getSong(name) != null) {
+            u.sendMessage(Message.format(Message.commandCreateNotNull, name));
+            return true;
+        }
+
         SongManager.getInstance().create(name, bpm, div, u.getTargetBlock());
         u.sendMessage(Message.format(Message.commandCreate, name, String.valueOf(bpm)));
         return true;

@@ -16,6 +16,8 @@ public class CommandManager {
         commands.put("editor", new SCEditor());
         commands.put("create", new SCCreate());
         commands.put("play", new SCPlay());
+        commands.put("delete", new SCDelete());
+        commands.put("list", new SCList());
     }
 
     public HashMap<String, BBSubCommand> getCommands() { return commands; }

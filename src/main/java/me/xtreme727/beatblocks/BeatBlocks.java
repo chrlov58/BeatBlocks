@@ -2,6 +2,9 @@ package me.xtreme727.beatblocks;
 
 import me.xtreme727.beatblocks.commands.CommandManager;
 import me.xtreme727.beatblocks.listeners.EditorListeners;
+import me.xtreme727.beatblocks.listeners.LEditorPlaceBreak;
+import me.xtreme727.beatblocks.listeners.LEditorInteract;
+import me.xtreme727.beatblocks.soundtools.SongManager;
 import me.xtreme727.beatblocks.users.User;
 import me.xtreme727.beatblocks.users.UserManager;
 import org.bukkit.Bukkit;
@@ -13,7 +16,10 @@ public class BeatBlocks extends JavaPlugin implements Listener {
 
     public void onEnable() {
         Bukkit.getServer().getPluginManager().registerEvents(new EditorListeners(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new LEditorInteract(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new LEditorPlaceBreak(), this);
         CommandManager.getInstance().onEnable(this);
+        SongManager.getInstance().onEnable();;
     }
 
     public void onDisable() {

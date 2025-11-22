@@ -1,7 +1,9 @@
 package me.xtreme727.beatblocks.soundtools;
 
 import me.xtreme727.beatblocks.Message;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -26,7 +28,6 @@ public enum Note {
     private String dName;
     private double[] pitches;
     private ItemStack dItem;
-    private int octave;
     private int iSlot;
 
     private Note(int iSlot, Material dMaterial, String dName, double... pitches) {
@@ -51,38 +52,26 @@ public enum Note {
         return dMaterial;
     }
 
-    public float getPitch() {
+    public float getPitch(int octave) {
         if (octave > 0 && pitches.length < (octave - 1)) return (float) pitches[pitches.length - 1];
         return (float) pitches[octave - 1];
-    }
-
-    public void setOctave(int octave) {
-        this.octave = octave;
-    }
-
-    public int getOctave() {
-        return octave;
     }
 
     public int getItemSlot() {
         return iSlot;
     }
 
-    private static Note getSharp(Note n) {
+    public static Note getSharp(Note n) {
         if (n == B) return C;
         return Note.values()[n.ordinal() + 1];
     }
 
-    private static Note getFlat(Note n) {
-        if (n == C) {
-            Note newNote = B;
-            newNote.setOctave(n.getOctave() - 1);
-            return newNote;
-        }
+    public static Note getFlat(Note n) {
+        if (n == C) return B;
         return Note.values()[n.ordinal()-1];
     }
 
-    public static Note fromBlock(Block instrumentBlock) {
+    /*public static Note fromBlock(Block instrumentBlock) {
         for (int i = 0; i <= 5; i++) {
             if (instrumentBlock.getRelative(0, i, 0).getType() == Material.AIR) {
                 for (Note n : Note.values()) {
@@ -98,6 +87,7 @@ public enum Note {
                         if (instrumentBlock.getRelative(0, i-2, 0).getType() == n.getDisplayMaterial()) {
                             n = getSharp(n);
                             n.setOctave(n == F_SHARP ? i-1 : i-2);
+                            Bukkit.getServer().broadcast(Component.text(n.toString() + " BLOCK 1, " + n.getOctave() + "O, " + n.getPitch() + "P"));
                             return n;
                         }
                     }
@@ -106,19 +96,21 @@ public enum Note {
                         if (instrumentBlock.getRelative(0, i-2, 0).getType() == n.getDisplayMaterial()) {
                             n = getFlat(n);
                             n.setOctave(i-2);
+                            Bukkit.getServer().broadcast(Component.text(n.toString() + " BLOCK 2, " + n.getOctave() + "O, " + n.getPitch() + "P"));
                             return n;
                         }
                     }
 
                     if (instrumentBlock.getRelative(0, i-1, 0).getType() == n.getDisplayMaterial()) {
                         n.setOctave(i-1);
+                        Bukkit.getServer().broadcast(Component.text(n.toString() + " BLOCK 3, " + n.getOctave() + "O, " + n.getPitch() + "P"));
                         return n;
                     }
                 }
             }
         }
         return null;
-    }
+    }*/
 
     public static ItemStack getSharpItemStack()  {
         ItemStack sharp = new ItemStack(Material.POLISHED_DIORITE_SLAB, 1);

@@ -17,6 +17,13 @@ public class SongManager {
         songs = new ArrayList<Song>();
     }
 
+    public void onEnable() {
+        for (String key : SettingsManager.getSongFile().getKeys()) {
+            Song s = new Song(key);
+            songs.add(s);
+        }
+    }
+
     public void delete(String name) {
         SettingsManager.getSongFile().set(name, null);
         Song s = getSong(name);
@@ -40,6 +47,10 @@ public class SongManager {
             if (s.getName().equalsIgnoreCase(name)) return s;
         }
         return null;
+    }
+
+    public ArrayList<Song> getSongs() {
+        return songs;
     }
 
 }

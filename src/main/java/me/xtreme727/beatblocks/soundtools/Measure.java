@@ -18,7 +18,7 @@ public enum Measure {
     SIX(6, 2, "6 Blocks &o(3/4 time)"),
     FOUR(4, 1, "4 Blocks &o(4/4 time)"),
     THREE(3, 1, "3 Blocks &o(3/4 time)"),
-    CONNECT(0, 0, "Connect &o(LEFT click two measure caps to connect them together)");
+    CONNECT(0, 0, "Connect &o(RIGHT click two measure caps to connect them together)");
 
     private int size;
     private int multiplier;
@@ -35,6 +35,10 @@ public enum Measure {
     public String getDisplayText() {
         return dText;
     }
+
+    public int getMultiplier() { return multiplier; }
+
+    public int getSize() { return size; }
 
     public ItemStack getMeasureItemStack() {
         ItemStack i = new ItemStack(Material.MAGMA_CREAM, 1);
@@ -57,12 +61,18 @@ public enum Measure {
         return i;
     }
 
-    public static ItemStack getMeasureCapItemStack() {
+    public static ItemStack getLineCapItemStack() {
         ItemStack i = new ItemStack(Material.REDSTONE_LAMP, 1);
         ItemMeta iMeta = i.getItemMeta();
-        iMeta.displayName(Message.formatItemMeta("&f&lMeasure Cap"));
+        iMeta.displayName(Message.formatItemMeta("&f&lLine Cap/Song Start"));
         ArrayList<Component> lore = new ArrayList<Component>();
-        lore.add(Message.formatItemMeta("&7Use the '&bMeasure Builder: &7Connect' tool to connect two measure caps."));
+        lore.add(Message.formatItemMeta("&7Use these to mark the start of your song,"));
+        lore.add(Message.formatItemMeta("&7the end of a long line of music, and"));
+        lore.add(Message.formatItemMeta("&7the start of the next line."));
+        lore.add(Component.text(""));
+        lore.add(Message.formatItemMeta("&7Use the '&bMeasure Builder: &7Connect' tool to connect two"));
+        lore.add(Message.formatItemMeta("&7different lines by their caps. One should be at the end of the"));
+        lore.add(Message.formatItemMeta("&7first line, and the other starting the next."));
         iMeta.lore(lore);
         i.setItemMeta(iMeta);
         return i;

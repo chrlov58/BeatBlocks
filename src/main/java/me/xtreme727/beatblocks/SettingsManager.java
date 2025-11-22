@@ -1,12 +1,16 @@
 package me.xtreme727.beatblocks;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.Set;
+import java.util.UUID;
 
 public class SettingsManager {
 
@@ -14,6 +18,9 @@ public class SettingsManager {
     public static SettingsManager getSongFile() {
         return songs;
     }
+
+    private static SettingsManager linecaps = new SettingsManager("Line-Caps");
+    public static SettingsManager getLineCapsFile() { return linecaps; }
 
     private File file;
     private FileConfiguration configuration;
@@ -41,6 +48,10 @@ public class SettingsManager {
         return configuration.getInt(path);
     }
 
+    public Set<String> getKeys() {
+        return configuration.getKeys(false);
+    }
+
     public Location getLocation(String path) {
         try {
             World w = Bukkit.getServer().getWorld(configuration.getString(path + ".World"));
@@ -63,6 +74,12 @@ public class SettingsManager {
         }
     }
 
+    public void saveCaps(Block b1, Block b2) {
+        UUID uuid = UUID.randomUUID();
+        saveLocation(uuid + ".End-Cap", b1.getLocation());
+        saveLocation(uuid + ".Start-Cap", b2.getLocation());
+    }
+
     public void saveLocation(String path, Location l) {
         set(path + ".World", l.getWorld().getName());
         set(path + ".X", l.getX());
@@ -73,6 +90,11 @@ public class SettingsManager {
     public void set(String path, Object value) {
         configuration.set(path, value);
         save();
+    }
+
+    public static boolean isSimilarLocation(Location a, Location b) {
+        return a.getBlockX() == b.getBlockX() && a.getBlockY() == b.getBlockY()
+                && a.getBlockZ() == b.getBlockZ() && a.getWorld().equals(b.getWorld());
     }
 
 }
